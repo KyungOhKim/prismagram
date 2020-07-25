@@ -18,10 +18,16 @@
   },
   "homepage": "https://github.com/KyungOhKim/prismagram#readme",
   "dependencies": {
+    "@babel/core": "7.4.5",
+    "@babel/preset-env": "7.4.5",
+    "babel-core": "7.0.0-bridge.0",
+    "dotenv": "8.0.0",
     "graphql-yoga": "1.18.0"
   },
   "devDependencies": {
     "@babel/node": "7.4.5",
+    "babel-preset-env": "1.7.0",
+    "babel-preset-stage-3": "6.24.1",
     "nodemon": "1.19.1"
   }
 }
