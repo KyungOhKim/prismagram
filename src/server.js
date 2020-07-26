@@ -5,9 +5,9 @@ import path from "path";
 dotenv.config({ path: path.resolve(__dirname, ".env") }); // __dirname 에서 .env까지
 import { GraphQLServer } from "graphql-yoga";
 import logger from "morgan";
+import passport from "passport";
 import schema from "./schema";
-// import passport from 'passport';
-// import './passport';
+import "./passport";
 
 const PORT = process.env.PORT || 4000;
 
@@ -30,6 +30,7 @@ const PORT = process.env.PORT || 4000;
 // schema가 api를 합친 버전
 const server = new GraphQLServer({ schema });
 server.express.use(logger("dev"));
+server.express.use(passport.authenticate("jwt"));
 
 server.start({ port: PORT }, () =>
   console.log(`server is running http://localhost:${PORT}`)
