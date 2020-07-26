@@ -6,9 +6,8 @@ dotenv.config({ path: path.resolve(__dirname, ".env") }); // __dirname 에서 .e
 import { GraphQLServer } from "graphql-yoga";
 import logger from "morgan";
 import schema from "./schema";
-import { sendSecretMail } from "./utils";
-
-sendSecretMail("kko0831@hanmail.net", "KyungOh Kim");
+// import passport from 'passport';
+// import './passport';
 
 const PORT = process.env.PORT || 4000;
 
