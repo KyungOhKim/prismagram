@@ -1,7 +1,14 @@
-require("dotenv").config();
+import dotenv from "dotenv";
+import path from "path";
+// src까지 경로임
+// console.log(__dirname);
+dotenv.config({ path: path.resolve(__dirname, ".env") }); // __dirname 에서 .env까지
 import { GraphQLServer } from "graphql-yoga";
 import logger from "morgan";
 import schema from "./schema";
+import { sendSecretMail } from "./utils";
+
+sendSecretMail("kko0831@hanmail.net", "KyungOh Kim");
 
 const PORT = process.env.PORT || 4000;
 
