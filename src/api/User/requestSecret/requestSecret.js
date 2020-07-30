@@ -8,13 +8,15 @@ export default {
       const loginSecret = generateSecret();
       console.log(loginSecret);
       try {
-        await sendSecretMail(email, loginSecret);
         await prisma.updateUser({
+          // email 보내기 전에 user정보가 있는지 확인해야함
           data: { loginSecret },
           where: { email }
         });
+        await sendSecretMail(email, loginSecret);
         return true;
-      } catch {
+      } catch (e) {
+        console.log(e);
         return false;
       }
     }
