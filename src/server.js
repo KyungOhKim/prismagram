@@ -6,10 +6,11 @@ dotenv.config({ path: path.resolve(__dirname, ".env") }); // __dirname 에서 .e
 import { GraphQLServer } from "graphql-yoga";
 import logger from "morgan";
 import schema from "./schema";
+// import { sendSecretMail } from "./utils";
 import { sendSecretMail } from "./utils";
 
-sendSecretMail("kko0831@hanmail.net", "KyungOh Kim");
-
+sendSecretMail("kko0831@hanmail.net", "secret123");
+console.log(process.env.MAILGUN_API_KEY);
 const PORT = process.env.PORT || 4000;
 
 //typeDefs
