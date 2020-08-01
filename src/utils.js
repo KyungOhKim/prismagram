@@ -1,11 +1,6 @@
-// .env 파일을 import하기위한 코드
-import dotenv from "dotenv";
-import path from "path";
-dotenv.config({ path: path.resolve(__dirname, ".env") });
 import { adjectives, nouns } from "./words";
-// import nodemailer from "nodemailer";
-// import sgTransport from "nodemailer-sendgrid-transport";
 import Mailgun from "mailgun-js";
+import jwt from "jsonwebtoken";
 
 const mailGunClient = new Mailgun({
   apiKey: process.env.MAILGUN_API_KEY || "",
@@ -33,25 +28,4 @@ export const generateSecret = () => {
   return `${adjectives[randomNumber]} ${nouns[randomNumber]}`;
 };
 
-/* 
-const sendMail = (email) => {
-  const options = {
-    auth: {
-      api_user: process.env.SENDGRID_USERNAME,
-      api_key: process.env.SENGRID_PASSWORD,
-    },
-  };
-  const client = nodemailer.createTransport(sgTransport(options));
-  return client.sendMail(email);
-};
-
-export const sendSecretMail = (address, secret) => {
-  const email = {
-    from: "kko0831@prismagram.com",
-    to: address,
-    subject: "🔒Login Secret for Prismagram🔒",
-    html: `Hello! Your login secret it ${secret}.<br/>Copy paste on the app/website to log in`,
-  };
-  return sendMail(email);
-}; 
-*/
+export const generateToken = (id) => jwt.sign({ id }, process.env.JWT_SECRET);
