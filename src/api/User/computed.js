@@ -7,22 +7,32 @@ export default {
       console.log(parent);
       return `${parent.firstName} ${parent.lastName}`;
     },
-    amIFollowing: async (parent, __, { request }) => {
+    isFollowing: async (parent, __, { request }) => {
       const { id: parentId } = parent;
       const { user } = request;
-      const existing = await prisma.$exists.user({
-        AND: [
-          { id: parentId }, // 팔로잉하려는 사람의 ID가 존재하면서
-          { followers_some: user.id } // 그사람의 팔로워에 내가 있는가?
-        ]
-      });
-      if (existing) {
-        return true;
-      } else {
+      try {
+        const exists = await prisma.$exists.user({
+          AND: [
+            { id: parentId }, // 팔로잉하려는 사람의 ID가 존재하면서
+            {
+              followers_some: {
+                id: user.id
+              }
+            } // 그사람의 팔로워에 내가 있는가?
+          ]
+        });
+        console.log(exists);
+        if (exists) {
+          return true;
+        } else {
+          return false;
+        }
+      } catch (error) {
+        console.log(error);
         return false;
       }
     },
-    itMe: (parent, __, { request }) => {
+    isSelf: (parent, __, { request }) => {
       //check me
       const { user } = request; //현재 로그인한 유저 정보
       const { id: parentId } = parent; // User를 호출한 Query
