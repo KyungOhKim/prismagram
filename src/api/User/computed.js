@@ -7,7 +7,7 @@ export default {
       console.log(parent);
       return `${parent.firstName} ${parent.lastName}`;
     },
-    isFollowing: async (parent, __, { request }) => {
+    isFollowing: (parent, __, { request }) => {
       const { id: parentId } = parent;
       const { user } = request;
       try {
@@ -36,6 +36,26 @@ export default {
       } else {
         return false;
       }
+    }
+  },
+  Post: {
+    isLiked: (parent, _, { request }) => {
+      const { user } = request;
+      const { id } = parent;
+      return prisma.$exists.like({
+        AND: [
+          {
+            user: {
+              id: user.id
+            }
+          },
+          {
+            post: {
+              id
+            }
+          }
+        ]
+      });
     }
   }
 };
