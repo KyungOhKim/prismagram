@@ -2,7 +2,7 @@ import { prisma } from "../../../generated/prisma-client";
 
 export default {
   User: {
-    fullName: (parent, __, { request }) => {
+    fullName: parent => {
       // firstName + lastName = FullName
       console.log(parent);
       return `${parent.firstName} ${parent.lastName}`;
@@ -11,24 +11,19 @@ export default {
       const { id: parentId } = parent;
       const { user } = request;
       try {
-        const exists = await prisma.$exists.user({
+        return prisma.$exists.user({
           AND: [
-            { id: parentId }, // 팔로잉하려는 사람의 ID가 존재하면서
             {
-              followers_some: {
+              id: parentId
+            },
+            {
+              following_some: {
                 id: user.id
               }
-            } // 그사람의 팔로워에 내가 있는가?
+            }
           ]
         });
-        console.log(exists);
-        if (exists) {
-          return true;
-        } else {
-          return false;
-        }
-      } catch (error) {
-        console.log(error);
+      } catch {
         return false;
       }
     },
