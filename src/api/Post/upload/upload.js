@@ -15,6 +15,7 @@ export default {
           await prisma.createFile({
             url: file,
             post: {
+              // post에도 연결이 됨.... 굳
               connect: {
                 id: post.id
               }
