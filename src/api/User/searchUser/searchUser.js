@@ -1,10 +1,10 @@
-import { prisma } from '../../../../generated/prisma-client';
+import { prisma } from "../../../../generated/prisma-client";
 
 export default {
   Query: {
     searchUser: async (_, args) => {
-      const { term } = args;
-      console.log(term);
+      const { id } = args;
+      console.log(id);
       const user = prisma.users({
         where: {
           OR: [
