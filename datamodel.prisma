@@ -1,5 +1,6 @@
 type User {
   id: ID! @id
+  avatar: String
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
   username: String! @unique
