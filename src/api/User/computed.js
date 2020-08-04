@@ -36,6 +36,9 @@ export default {
       } else {
         return false;
       }
+    },
+    posts: parent => {
+      return prisma.user({ id: parent.id }).posts();
     }
   }
 };

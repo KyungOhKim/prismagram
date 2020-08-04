@@ -1,5 +1,5 @@
-import { generateSecret, sendSecretMail } from '../../../utils';
-import { prisma } from '../../../../generated/prisma-client';
+import { generateSecret, sendSecretMail } from "../../../utils";
+import { prisma } from "../../../../generated/prisma-client";
 
 export default {
   Mutation: {
@@ -14,7 +14,8 @@ export default {
           where: { email }
         });
         return true;
-      } catch {
+      } catch (e) {
+        console.log(e);
         return false;
       }
     }
