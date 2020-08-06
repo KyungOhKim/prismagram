@@ -7,7 +7,3 @@ type Mutation {
     bio: String
   ): Boolean!
 }
-
-type Query {
-  something: String!
-}

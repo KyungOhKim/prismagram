@@ -13,14 +13,12 @@ export default {
       try {
         return prisma.$exists.user({
           AND: [
+            { id: parentId }, // 팔로잉하려는 사람의 ID가 존재하면서
             {
-              id: parentId
-            },
-            {
-              following_some: {
+              followers_some: {
                 id: user.id
               }
-            }
+            } // 그사람의 팔로워에 내가 있는가?
           ]
         });
       } catch {
@@ -37,8 +35,21 @@ export default {
         return false;
       }
     },
-    posts: parent => {
-      return prisma.user({ id: parent.id }).posts();
-    }
+    posts: ({ id }) => prisma.user({ id }).posts(),
+    following: ({ id }) => prisma.user({ id }).following(),
+    followers: ({ id }) => prisma.user({ id }).followers(),
+    likes: ({ id }) => prisma.user({ id }).likes(),
+    comments: ({ id }) => prisma.user({ id }).comments(),
+    rooms: ({ id }) => prisma.user({ id }).rooms(),
+    followingCount: ({ id }) =>
+      prisma
+        .usersConnection({ where: { followers_some: { id } } })
+        .aggregate()
+        .count(),
+    followersCount: ({ id }) =>
+      prisma
+        .usersConnection({ where: { following_none: { id } } })
+        .aggregate()
+        .count()
   }
 };
