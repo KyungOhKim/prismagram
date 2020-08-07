@@ -10,6 +10,7 @@ type User {
   email: String!
   bio: String
   posts: [Post!]!
+  postsCount: Int!
   comments: [Comment!]!
   likes: [Like!]!
   following: [User!]!
@@ -30,6 +31,7 @@ type Post {
   location: String
   caption: String!
   comments: [Comment!]
+  commentCount: Int!
   isLiked: Boolean!
   likeCount: Int!
   createdAt: String
