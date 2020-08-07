@@ -2,7 +2,7 @@ import { prisma } from "../../../generated/prisma-client";
 
 export default {
   User: {
-    fullName: (parent, __, { request }) => {
+    fullName: parent => {
       // firstName + lastName = FullName
       console.log(parent);
       return `${parent.firstName} ${parent.lastName}`;
