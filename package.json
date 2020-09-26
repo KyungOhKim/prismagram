@@ -7,9 +7,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "deploy": "prisma deploy",
     "generate": "prisma generate",
-    "prisma": "yarn run deploy && yarn run generate",
+    "prisma": "npm run deploy && npm run generate",
     "dev": "nodemon --exec babel-node src/server.js",
-    "build": "babel src -d build"
+    "build": "babel src -d build",
+    "postbuild": "npx copy src/api/**/**.graphql ./build/api",
+    "start": "node build/server.js"
   },
   "repository": {
     "type": "git",
@@ -29,6 +31,7 @@
     "@babel/runtime": "7.8.3",
     "aws-sdk": "2.612.0",
     "babel-core": "7.0.0-bridge.0",
+    "copy": "0.3.2",
     "dotenv": "8.2.0",
     "graphql-tools": "4.0.5",
     "graphql-yoga": "1.18.0",
