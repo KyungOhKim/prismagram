@@ -1,0 +1,6 @@
+endpoint: https://kkosmagram-prisma-4b4cc26e36.herokuapp.com/prismagram/dev
+datamodel: datamodel.prisma
+
+generate:
+  - generator: javascript-client
+    output: ./generated/prisma-client/
