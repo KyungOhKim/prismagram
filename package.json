@@ -7,8 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "deploy": "prisma deploy",
     "generate": "prisma generate",
-    "prisma": "npm run deploy && npm run generate",
+    "prisma": "yarn run deploy && yarn run generate",
     "dev": "nodemon --exec babel-node src/server.js",
+    "prebuild": "yarn run prisma",
     "build": "babel src -d build",
     "postbuild": "npx copy src/api/**/**.graphql ./build/api",
     "start": "node build/server.js"
